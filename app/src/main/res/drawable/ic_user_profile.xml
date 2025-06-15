@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="120dp"
+    android:height="120dp"
+    android:viewportWidth="120"
+    android:viewportHeight="120">
+
+    <!-- Background Circle -->
+    <path
+        android:fillColor="@color/primary_light"
+        android:pathData="M60,60m-58,0a58,58 0,1 1,116 0a58,58 0,1 1,-116 0" />
+
+    <!-- Outer Ring -->
+    <path
+        android:fillColor="@color/primary"
+        android:pathData="M60,60m-55,0a55,55 0,1 1,110 0a55,55 0,1 1,-110 0
+                          M60,60m-50,0a50,50 0,1 0,100 0a50,50 0,1 0,-100 0" />
+
+    <!-- Head -->
+    <path
+        android:fillColor="@color/primary"
+        android:pathData="M60,45m-22,0a22,22 0,1 1,44 0a22,22 0,1 1,-44 0" />
+    
+    <!-- Body/Torso -->
+    <path
+        android:fillColor="@color/primary"
+        android:pathData="M60,70 Q85,70 100,90 L100,110 L20,110 L20,90 Q35,70 60,70" />
+    
+    <!-- Accent Element -->
+    <path
+        android:fillColor="@color/accent"
+        android:pathData="M60,100m-8,0a8,8 0,1 1,16 0a8,8 0,1 1,-16 0" />
+</vector> 

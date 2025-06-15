@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PDF查看器测试</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #333;
+            text-align: center;
+        }
+        .test-links {
+            margin: 20px 0;
+        }
+        .test-link {
+            display: block;
+            margin: 10px 0;
+            padding: 15px;
+            background: #2196F3;
+            color: white;
+            text-decoration: none;
+            border-radius: 4px;
+            text-align: center;
+            transition: background-color 0.3s;
+        }
+        .test-link:hover {
+            background: #1976D2;
+        }
+        .info {
+            background: #e3f2fd;
+            padding: 15px;
+            border-radius: 4px;
+            margin: 20px 0;
+            border-left: 4px solid #2196F3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>PDF查看器测试页面</h1>
+        
+        <div class="info">
+            <h3>测试说明</h3>
+            <p>点击下面的链接测试不同的PDF文件加载：</p>
+            <ul>
+                <li>本地PDF查看器会优先尝试直接加载</li>
+                <li>如果失败，会尝试Google Drive Viewer</li>
+                <li>最后提供下载和外部应用打开选项</li>
+            </ul>
+        </div>
+        
+        <div class="test-links">
+            <a href="pdfviewer.html?http://192.168.43.230:3000/book/java.pdf" class="test-link" target="_blank">
+                测试Java PDF文件
+            </a>
+            
+            <a href="pdfviewer.html?http://192.168.43.230:3000/book/android.pdf" class="test-link" target="_blank">
+                测试Android PDF文件
+            </a>
+            
+            <a href="pdfviewer.html?http://192.168.43.230:3000/book/algorithm.pdf" class="test-link" target="_blank">
+                测试算法PDF文件
+            </a>
+            
+            <a href="pdfviewer.html?http://192.168.43.230:3000/book/web.pdf" class="test-link" target="_blank">
+                测试Web PDF文件
+            </a>
+            
+            <a href="pdfviewer.html?http://192.168.43.230:3000/book/python.pdf" class="test-link" target="_blank">
+                测试Python PDF文件
+            </a>
+        </div>
+        
+        <div class="info">
+            <h3>直接访问PDF文件</h3>
+            <p>也可以直接访问PDF文件：</p>
+            <ul>
+                <li><a href="http://192.168.43.230:3000/book/java.pdf" target="_blank">Java PDF</a></li>
+                <li><a href="http://192.168.43.230:3000/book/android.pdf" target="_blank">Android PDF</a></li>
+                <li><a href="http://192.168.43.230:3000/book/algorithm.pdf" target="_blank">算法 PDF</a></li>
+                <li><a href="http://192.168.43.230:3000/book/web.pdf" target="_blank">Web PDF</a></li>
+                <li><a href="http://192.168.43.230:3000/book/python.pdf" target="_blank">Python PDF</a></li>
+            </ul>
+        </div>
+    </div>
+</body>
+</html> 

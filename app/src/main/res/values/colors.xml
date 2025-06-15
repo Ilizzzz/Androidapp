@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Base colors -->
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    
+    <!-- Primary theme colors -->
+    <color name="primary">#1565C0</color>         <!-- Dark blue -->
+    <color name="primary_dark">#0D47A1</color>    <!-- Darker blue for status bar -->
+    <color name="primary_light">#42A5F5</color>   <!-- Light blue for highlights -->
+    <color name="accent">#FF5722</color>          <!-- Orange accent for buttons, etc. -->
+    
+    <!-- Text colors -->
+    <color name="text_primary">#212121</color>    <!-- Dark gray for primary text -->
+    <color name="text_secondary">#757575</color>  <!-- Medium gray for secondary text -->
+    <color name="text_hint">#9E9E9E</color>       <!-- Light gray for hints -->
+    
+    <!-- Background colors -->
+    <color name="background">#F5F5F5</color>      <!-- Light gray for main background -->
+    <color name="card_background">#FFFFFF</color> <!-- White for cards -->
+    
+    <!-- Status colors -->
+    <color name="status_pending">#FFA000</color>  <!-- Amber for pending -->
+    <color name="status_answered">#43A047</color> <!-- Green for answered -->
+    
+    <!-- Gradient colors -->
+    <color name="gradient_start">#1565C0</color>  <!-- Start color for gradients -->
+    <color name="gradient_end">#42A5F5</color>    <!-- End color for gradients -->
+    
+    <!-- Divider color -->
+    <color name="divider">#EEEEEE</color>         <!-- Very light gray for dividers -->
+</resources>

@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="8dp"
+    android:clickable="true"
+    android:focusable="true"
+    app:cardCornerRadius="8dp"
+    app:cardElevation="2dp"
+    app:cardUseCompatPadding="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="16dp">
+
+        <!-- 类型图标 -->
+        <ImageView
+            android:id="@+id/typeIconImageView"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginEnd="16dp"
+            android:background="@drawable/circle_background"
+            android:padding="12dp"
+            android:scaleType="centerInside"
+            android:src="@drawable/ic_play_circle"
+            android:contentDescription="@string/content_type_icon"
+            app:tint="@color/white" />
+
+        <!-- 内容区域 -->
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <!-- 标题 -->
+            <TextView
+                android:id="@+id/subCourseTitleTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAppearance="@style/TextAppearance.Material3.TitleMedium"
+                android:textStyle="bold"
+                android:maxLines="2"
+                android:ellipsize="end"
+                tools:text="第一章：堆的基本概念" />
+
+            <!-- 描述 -->
+            <TextView
+                android:id="@+id/subCourseDescriptionTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:textAppearance="@style/TextAppearance.Material3.BodyMedium"
+                android:textColor="?android:attr/textColorSecondary"
+                android:maxLines="2"
+                android:ellipsize="end"
+                tools:text="学习堆数据结构的基本概念和特性" />
+
+            <!-- 时长信息 -->
+            <TextView
+                android:id="@+id/subCourseDurationTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:drawableStart="@drawable/ic_schedule"
+                android:drawablePadding="4dp"
+                android:gravity="center_vertical"
+                android:textAppearance="@style/TextAppearance.Material3.BodySmall"
+                android:textColor="?android:attr/textColorSecondary"
+                tools:text="15分钟" />
+
+            <!-- 内容选项按钮 -->
+            <LinearLayout
+                android:id="@+id/contentOptionsLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:orientation="horizontal"
+                android:gravity="start">
+
+                <!-- 视频按钮 -->
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/videoButton"
+                    style="@style/Widget.Material3.Button.UnelevatedButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="36dp"
+                    android:layout_marginEnd="8dp"
+                    android:text="视频讲解"
+                    android:textSize="12sp"
+                    android:textColor="@android:color/white"
+                    android:backgroundTint="#2196F3"
+                    app:icon="@drawable/ic_play_circle"
+                    app:iconTint="@android:color/white"
+                    app:iconSize="16dp"
+                    app:iconPadding="4dp" />
+
+                <!-- PDF按钮 -->
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/pdfButton"
+                    style="@style/Widget.Material3.Button.OutlinedButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="36dp"
+                    android:text="课件资料"
+                    android:textSize="12sp"
+                    android:textColor="#FF5722"
+                    app:strokeColor="#FF5722"
+                    app:icon="@drawable/ic_description"
+                    app:iconTint="#FF5722"
+                    app:iconSize="16dp"
+                    app:iconPadding="4dp" />
+
+            </LinearLayout>
+
+            <!-- 兼容旧版本的类型标签（隐藏） -->
+            <TextView
+                android:id="@+id/subCourseTypeTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                tools:text="视频课程" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</com.google.android.material.card.MaterialCardView> 

@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>PDF查看器</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            overflow: hidden;
+        }
+        
+        #container {
+            width: 100vw;
+            height: 100vh;
+            position: relative;
+        }
+        
+        #pdfFrame {
+            width: 100%;
+            height: 100%;
+            border: none;
+            background: white;
+        }
+        
+        #pdfObject {
+            width: 100%;
+            height: 100%;
+            display: none;
+        }
+        
+        #loading {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            z-index: 1000;
+        }
+        
+        #error {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            z-index: 1000;
+            display: none;
+            max-width: 90%;
+        }
+        
+        .spinner {
+            width: 50px;
+            height: 50px;
+            border: 5px solid #f3f3f3;
+            border-top: 5px solid #2196F3;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 15px;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .btn {
+            background: #2196F3;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            margin: 8px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s;
+        }
+        
+        .btn:hover {
+            background: #1976D2;
+        }
+        
+        .btn-secondary {
+            background: #757575;
+        }
+        
+        .btn-secondary:hover {
+            background: #616161;
+        }
+        
+        .status-text {
+            color: #666;
+            font-size: 14px;
+            margin-top: 10px;
+        }
+        
+        .error-text {
+            color: #d32f2f;
+            font-size: 16px;
+            margin-bottom: 20px;
+            line-height: 1.5;
+        }
+        
+        .fallback-content {
+            text-align: center;
+            padding: 50px;
+            font-size: 18px;
+            background: white;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+    </style>
+</head>
+<body>
+    <div id="container">
+        <iframe id="pdfFrame"></iframe>
+        
+        <div id="pdfObject">
+            <object id="pdfObjectTag" type="application/pdf" width="100%" height="100%">
+                <embed id="pdfEmbedTag" type="application/pdf" width="100%" height="100%">
+                    <div class="fallback-content">
+                        <p>您的浏览器不支持PDF预览</p>
+                        <div>
+                            <button class="btn" onclick="downloadFile()">下载PDF文件</button>
+                            <button class="btn btn-secondary" onclick="openExternal()">外部打开</button>
+                        </div>
+                    </div>
+                </embed>
+            </object>
+        </div>
+        
+        <div id="loading">
+            <div class="spinner"></div>
+            <div>正在加载PDF文件...</div>
+            <div id="statusText" class="status-text">请稍候</div>
+        </div>
+        
+        <div id="error">
+            <div id="errorText" class="error-text">无法加载PDF文件</div>
+            <div>
+                <button class="btn" onclick="retryLoad()">重新加载</button>
+                <button class="btn btn-secondary" onclick="openExternal()">外部打开</button>
+                <button class="btn btn-secondary" onclick="downloadFile()">下载文件</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let pdfUrl = '';
+        let loadTimeout = null;
+        let currentMethod = 0;
+        const methods = [
+            { name: '直接加载', timeout: 5000 },
+            { name: '兼容模式', timeout: 5000 },
+            { name: '嵌入模式', timeout: 5000 }
+        ];
+        
+        // 获取PDF URL
+        function getPdfUrl() {
+            const search = window.location.search;
+            if (search.startsWith('?')) {
+                return decodeURIComponent(search.substring(1));
+            }
+            const urlParams = new URLSearchParams(search);
+            return urlParams.get('url') || '';
+        }
+        
+        // 更新状态文本
+        function updateStatus(text) {
+            const statusEl = document.getElementById('statusText');
+            if (statusEl) {
+                statusEl.textContent = text;
+            }
+        }
+        
+        // 显示错误
+        function showError(message) {
+            const loadingEl = document.getElementById('loading');
+            const errorEl = document.getElementById('error');
+            const errorTextEl = document.getElementById('errorText');
+            
+            if (loadingEl) loadingEl.style.display = 'none';
+            if (errorTextEl) errorTextEl.textContent = message;
+            if (errorEl) errorEl.style.display = 'block';
+            
+            if (loadTimeout) {
+                clearTimeout(loadTimeout);
+                loadTimeout = null;
+            }
+        }
+        
+        // 隐藏加载界面
+        function hideLoading() {
+            const loadingEl = document.getElementById('loading');
+            if (loadingEl) loadingEl.style.display = 'none';
+            
+            if (loadTimeout) {
+                clearTimeout(loadTimeout);
+                loadTimeout = null;
+            }
+        }
+        
+        // 显示PDF
+        function showPdf() {
+            hideLoading();
+            // 确保错误界面隐藏
+            const errorEl = document.getElementById('error');
+            if (errorEl) errorEl.style.display = 'none';
+        }
+        
+        // 加载PDF
+        function loadPdf() {
+            if (!pdfUrl) {
+                showError('未提供PDF文件地址');
+                return;
+            }
+            
+            const method = methods[currentMethod];
+            updateStatus(`使用${method.name}加载...`);
+            console.log(`尝试方法 ${currentMethod + 1}: ${method.name}`);
+            
+            // 清除之前的超时
+            if (loadTimeout) {
+                clearTimeout(loadTimeout);
+            }
+            
+            // 设置超时
+            loadTimeout = setTimeout(() => {
+                console.log(`方法 ${currentMethod + 1} 超时`);
+                tryNextMethod();
+            }, method.timeout);
+            
+            // 根据当前方法设置URL
+            switch (currentMethod) {
+                case 0:
+                    loadWithIframe();
+                    break;
+                case 1:
+                    loadWithIframeParams();
+                    break;
+                case 2:
+                    loadWithObject();
+                    break;
+            }
+        }
+        
+        // 方法1：直接iframe加载
+        function loadWithIframe() {
+            const iframe = document.getElementById('pdfFrame');
+            const pdfObject = document.getElementById('pdfObject');
+            
+            if (iframe && pdfObject) {
+                iframe.style.display = 'block';
+                pdfObject.style.display = 'none';
+                
+                iframe.onload = function() {
+                    console.log('方法 1 加载成功');
+                    showPdf();
+                };
+                
+                iframe.onerror = function() {
+                    console.log('方法 1 加载失败');
+                    tryNextMethod();
+                };
+                
+                iframe.src = pdfUrl;
+            } else {
+                tryNextMethod();
+            }
+        }
+        
+        // 方法2：添加PDF参数
+        function loadWithIframeParams() {
+            const iframe = document.getElementById('pdfFrame');
+            const pdfObject = document.getElementById('pdfObject');
+            
+            if (iframe && pdfObject) {
+                iframe.style.display = 'block';
+                pdfObject.style.display = 'none';
+                
+                iframe.onload = function() {
+                    console.log('方法 2 加载成功');
+                    showPdf();
+                };
+                
+                iframe.onerror = function() {
+                    console.log('方法 2 加载失败');
+                    tryNextMethod();
+                };
+                
+                iframe.src = pdfUrl + '#toolbar=1&navpanes=1&scrollbar=1&view=FitH';
+            } else {
+                tryNextMethod();
+            }
+        }
+        
+        // 方法3：使用object标签
+        function loadWithObject() {
+            const iframe = document.getElementById('pdfFrame');
+            const pdfObject = document.getElementById('pdfObject');
+            const objectTag = document.getElementById('pdfObjectTag');
+            const embedTag = document.getElementById('pdfEmbedTag');
+            
+            if (iframe && pdfObject && objectTag && embedTag) {
+                iframe.style.display = 'none';
+                pdfObject.style.display = 'block';
+                
+                objectTag.data = pdfUrl;
+                embedTag.src = pdfUrl;
+                
+                // 给object标签一些时间加载
+                setTimeout(() => {
+                    console.log('方法 3 使用object标签');
+                    showPdf();
+                }, 2000);
+            } else {
+                tryNextMethod();
+            }
+        }
+        
+        // 尝试下一种方法
+        function tryNextMethod() {
+            if (loadTimeout) {
+                clearTimeout(loadTimeout);
+                loadTimeout = null;
+            }
+            
+            currentMethod++;
+            if (currentMethod < methods.length) {
+                loadPdf();
+            } else {
+                showError('所有加载方法都失败了。\n\n可能的原因：\n• 网络连接问题\n• PDF文件不存在或损坏\n• 浏览器不支持PDF预览\n\n请尝试下载文件或使用外部应用打开。');
+            }
+        }
+        
+        // 重新加载
+        function retryLoad() {
+            const errorEl = document.getElementById('error');
+            const loadingEl = document.getElementById('loading');
+            
+            if (errorEl) errorEl.style.display = 'none';
+            if (loadingEl) loadingEl.style.display = 'block';
+            
+            currentMethod = 0;
+            
+            // 重置iframe和object
+            const iframe = document.getElementById('pdfFrame');
+            const pdfObject = document.getElementById('pdfObject');
+            
+            if (iframe) {
+                iframe.src = 'about:blank';
+                iframe.style.display = 'block';
+            }
+            if (pdfObject) {
+                pdfObject.style.display = 'none';
+            }
+            
+            setTimeout(() => {
+                loadPdf();
+            }, 500);
+        }
+        
+        // 外部打开
+        function openExternal() {
+            if (window.Android && window.Android.openExternal) {
+                window.Android.openExternal(pdfUrl);
+            } else {
+                window.open(pdfUrl, '_blank');
+            }
+        }
+        
+        // 下载文件
+        function downloadFile() {
+            if (window.Android && window.Android.downloadPdf) {
+                window.Android.downloadPdf(pdfUrl);
+            } else {
+                const link = document.createElement('a');
+                link.href = pdfUrl;
+                link.download = 'document.pdf';
+                link.target = '_blank';
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+            }
+        }
+        
+        // 初始化
+        function init() {
+            pdfUrl = getPdfUrl();
+            console.log('PDF URL:', pdfUrl);
+            
+            if (!pdfUrl) {
+                showError('未提供PDF文件地址');
+                return;
+            }
+            
+            // 开始加载
+            loadPdf();
+        }
+        
+        // 页面加载完成后初始化
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', init);
+        } else {
+            init();
+        }
+        
+        // 防止页面被缓存
+        window.addEventListener('pageshow', function(event) {
+            if (event.persisted) {
+                window.location.reload();
+            }
+        });
+    </script>
+</body>
+</html> 

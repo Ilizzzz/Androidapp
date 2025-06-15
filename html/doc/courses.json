@@ -1,0 +1,62 @@
+[
+  {
+    "id": 1,
+    "title": "Java编程基础",
+    "description": "学习Java编程语言的基础知识，包括语法、面向对象编程和常用API",
+    "image": "Java.png",
+    "author": "李教授",
+    "duration": "8周",
+    "level": "初级",
+    "rating": 4.8,
+    "students": 1250,
+    "price": 199.00
+  },
+  {
+    "id": 2,
+    "title": "Android应用开发",
+    "description": "使用Android Studio开发移动应用，学习UI设计、数据存储和网络通信",
+    "image": "Android Studio.png",
+    "author": "王讲师",
+    "duration": "10周",
+    "level": "中级",
+    "rating": 4.6,
+    "students": 980,
+    "price": 299.00
+  },
+  {
+    "id": 3,
+    "title": "数据结构与算法",
+    "description": "学习基本数据结构和算法，提高编程效率和解决问题的能力",
+    "image": "数据结构.png",
+    "author": "张教授",
+    "duration": "12周",
+    "level": "中级",
+    "rating": 4.9,
+    "students": 1560,
+    "price": 249.00
+  },
+  {
+    "id": 4,
+    "title": "Web前端开发",
+    "description": "学习HTML、CSS和JavaScript，构建现代化的响应式网站",
+    "image": "Web前端开发.png",
+    "author": "刘讲师",
+    "duration": "6周",
+    "level": "初级",
+    "rating": 4.7,
+    "students": 2100,
+    "price": 179.00
+  },
+  {
+    "id": 5,
+    "title": "Python人工智能入门",
+    "description": "使用Python进行人工智能和机器学习的入门课程",
+    "image": "python人工智能.png",
+    "author": "赵教授",
+    "duration": "14周",
+    "level": "高级",
+    "rating": 4.9,
+    "students": 1820,
+    "price": 399.00
+  }
+] 

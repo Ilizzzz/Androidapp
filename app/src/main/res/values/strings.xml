@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">云课堂</string>
+    <string name="login">登录</string>
+    <string name="register">注册</string>
+    <string name="email">邮箱</string>
+    <string name="password">密码</string>
+    <string name="confirm_password">确认密码</string>
+    <string name="name">姓名</string>
+    <string name="phone">手机号</string>
+    <string name="forgot_password">忘记密码?</string>
+    <string name="no_account">还没有账号? 点击注册</string>
+    <string name="already_have_account">已有账号? 点击登录</string>
+    <string name="registration_success">注册成功!</string>
+    <string name="login_success">登录成功!</string>
+    <string name="error_empty_field">此字段不能为空</string>
+    <string name="error_invalid_email">请输入有效的邮箱地址</string>
+    <string name="error_invalid_phone">请输入有效的手机号码</string>
+    <string name="error_password_mismatch">两次输入的密码不一致</string>
+    <string name="network_error">网络错误</string>
+    <string name="unknown_error">未知错误</string>
+    <string name="appbar_scrolling_view_behavior" translatable="false">com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior</string>
+    
+    <!-- 子课程相关字符串 -->
+    <string name="course_image">课程图片</string>
+    <string name="no_sub_courses">暂无子课程</string>
+    <string name="content_type_icon">内容类型图标</string>
+    <string name="play_content">播放内容</string>
+</resources>

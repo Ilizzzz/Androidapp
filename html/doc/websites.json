@@ -1,0 +1,37 @@
+[
+  {
+    "id": 1,
+    "name": "GitHub",
+    "url": "https://github.com",
+    "description": "全球最大的代码托管平台，提供版本控制和协作功能",
+    "image": "https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png"
+  },
+  {
+    "id": 2,
+    "name": "LeetCode",
+    "url": "https://leetcode.com",
+    "description": "提供编程技能训练和面试准备的在线平台",
+    "image": "https://assets.leetcode.com/static_assets/public/icons/favicon.ico"
+  },
+  {
+    "id": 3,
+    "name": "Stack Overflow",
+    "url": "https://stackoverflow.com",
+    "description": "程序员问答社区，解决编程问题的最佳资源",
+    "image": "https://cdn.sstatic.net/Sites/stackoverflow/Img/apple-touch-icon.png"
+  },
+  {
+    "id": 4,
+    "name": "Coursera",
+    "url": "https://coursera.org",
+    "description": "提供来自顶尖大学和公司的在线课程",
+    "image": "https://d3njjcbhbojbot.cloudfront.net/web/images/favicons/apple-touch-icon-v2.png"
+  },
+  {
+    "id": 5,
+    "name": "MDN Web Docs",
+    "url": "https://developer.mozilla.org",
+    "description": "Web技术的综合性文档资源",
+    "image": "https://developer.mozilla.org/apple-touch-icon.6803c6f0.png"
+  }
+] 

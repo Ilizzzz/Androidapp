@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="240dp"
+    android:height="240dp"
+    android:viewportWidth="240"
+    android:viewportHeight="240">
+
+    <!-- Outer circle/background -->
+    <path
+        android:fillColor="@color/primary"
+        android:pathData="M120,120m-110,0a110,110 0,1 1,220 0a110,110 0,1 1,-220 0" />
+
+    <!-- Inner circle/highlight -->
+    <path
+        android:fillColor="@color/primary_light"
+        android:pathData="M120,120m-90,0a90,90 0,1 1,180 0a90,90 0,1 1,-180 0" />
+
+    <!-- Book base -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M75,70L165,70L165,150L75,150Z" />
+
+    <!-- Book pages -->
+    <path
+        android:fillColor="#EEEEEE"
+        android:pathData="M75,70L165,70L165,75L75,75Z" />
+    <path
+        android:fillColor="#EEEEEE"
+        android:pathData="M75,85L165,85L165,90L75,90Z" />
+    <path
+        android:fillColor="#EEEEEE"
+        android:pathData="M75,100L165,100L165,105L75,105Z" />
+    <path
+        android:fillColor="#EEEEEE"
+        android:pathData="M75,115L165,115L165,120L75,120Z" />
+    <path
+        android:fillColor="#EEEEEE"
+        android:pathData="M75,130L165,130L165,135L75,135Z" />
+
+    <!-- Graduation cap -->
+    <path
+        android:fillColor="@color/accent"
+        android:pathData="M120,50L170,80L120,110L70,80L120,50Z" />
+    
+    <!-- Tassel -->
+    <path
+        android:fillColor="@color/accent"
+        android:pathData="M120,110L120,130L130,140L125,140L120,130L115,140L110,140L120,130Z" />
+    
+    <!-- Accent dot -->
+    <path
+        android:fillColor="@color/accent"
+        android:pathData="M120,170m-15,0a15,15 0,1 1,30 0a15,15 0,1 1,-30 0" />
+</vector> 

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    
+    <item
+        android:id="@+id/action_retry"
+        android:icon="@android:drawable/ic_menu_rotate"
+        android:title="重试加载"
+        app:showAsAction="ifRoom" />
+    
+    <item
+        android:id="@+id/action_open_in_browser"
+        android:icon="@android:drawable/ic_menu_view"
+        android:title="在浏览器中打开"
+        app:showAsAction="ifRoom" />
+    
+    <item
+        android:id="@+id/action_share"
+        android:icon="@android:drawable/ic_menu_share"
+        android:title="分享链接"
+        app:showAsAction="ifRoom" />
+</menu> 
